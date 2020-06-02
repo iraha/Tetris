@@ -56,7 +56,7 @@ public class TetrisBlock : MonoBehaviour
             {
                 transform.position -= new Vector3(0, -1, 0);
                 AddToGrid();
-                CheckLines();
+                CheckForLines();
                 this.enabled = false;
                 FindObjectOfType<SpawnBlock>().NewBlock();
 
@@ -65,9 +65,9 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
-    public void CheckLines() 
+    public void CheckForLines() 
     {
-        for (int i = height; i >= 0; i--) 
+        for (int i = height-1; i >= 0; i--) 
         {
            if (HasLine(i)) 
            {

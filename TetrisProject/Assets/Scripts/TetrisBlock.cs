@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class TetrisBlock : MonoBehaviour
         }
 
         // ブロックが下に行く時間
-        if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
+        else if ((Input.GetKey(KeyCode.DownArrow) || Time.time - previousTime >= fallTime))
         {
             transform.position += new Vector3(0, -1, 0);
             if (!ValidMove()) 
@@ -67,16 +68,18 @@ public class TetrisBlock : MonoBehaviour
 
     public void CheckForLines() 
     {
-        for (int i = height-1; i >= 0; i--) 
+        for (int i = height - 1; i >= 0; i--) 
         {
            if (HasLine(i)) 
            {
                 DeleteLine(i);
                 RowDown(i);
+                
            } 
         }
     }
 
+    // 列がそろっているか確認
     bool HasLine(int i) 
     {
         for(int j = 0; j < width; j++) 
@@ -87,6 +90,7 @@ public class TetrisBlock : MonoBehaviour
         return true;
     }
 
+    // ラインを消す
     void DeleteLine(int i) 
     {
         for (int j = 0; j < width; j++) 
@@ -95,7 +99,8 @@ public class TetrisBlock : MonoBehaviour
             grid[j, i] = null;
         }
     }
-
+    
+    // 列を下げる
     public void RowDown(int i) 
     {
         for (int y = i; y < height; y++) 
@@ -122,6 +127,28 @@ public class TetrisBlock : MonoBehaviour
 
             grid[roundedX, roundedY] = children;
         }
+        CheckEndGame();
+    }
+
+    void CheckEndGame()
+    {
+        
+        for (int j = 0; j < width; j++)
+        {
+            // 一番高い高い列のブロックを確認
+            if (grid[height-1, j] != null)
+            {
+                // 上に届いたらゲームオーバー
+                GameOver();
+            }
+        }
+    }
+
+    // Gameoverの処理
+    public void GameOver() 
+    {
+        print("G");
+        Scene loadScene = SceneManager.GetActiveScene();
     }
 
     // ブロック移動の制御
@@ -138,7 +165,7 @@ public class TetrisBlock : MonoBehaviour
             {
                 return false;
             }
-
+            
             if (grid[roundedX, roundedY] != null) 
             {
                 return false;

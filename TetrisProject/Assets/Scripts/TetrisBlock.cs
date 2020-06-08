@@ -12,6 +12,8 @@ public class TetrisBlock : MonoBehaviour
     public static int height = 20;
     public static int width = 10;
 
+    public static int score = 0;
+
     private static Transform[,] grid = new Transform[width, height];
 
 
@@ -87,6 +89,9 @@ public class TetrisBlock : MonoBehaviour
             if (grid[j, i] == null)
             return false;
         }
+
+        score += 100;
+        print(score);
         return true;
     }
 
@@ -126,29 +131,19 @@ public class TetrisBlock : MonoBehaviour
             int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
             grid[roundedX, roundedY] = children;
-        }
-        CheckEndGame();
-    }
 
-    void CheckEndGame()
-    {
-        
-        for (int j = 0; j < width; j++)
-        {
-            // 一番高い高い列のブロックを確認
-            if (grid[height-1, j] != null)
+            // height-1 = 19のところまでブロックがきたらGameOver
+            if (roundedY >= height-1) 
             {
-                // 上に届いたらゲームオーバー
                 GameOver();
             }
+
         }
     }
 
-    // Gameoverの処理
     public void GameOver() 
     {
-        print("G");
-        Scene loadScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene("SampleScene");
     }
 
     // ブロック移動の制御

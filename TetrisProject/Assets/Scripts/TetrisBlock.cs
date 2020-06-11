@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TetrisBlock : MonoBehaviour
 {
@@ -12,15 +13,23 @@ public class TetrisBlock : MonoBehaviour
     public static int height = 20;
     public static int width = 10;
 
-    public static int score = 0;
-
     private static Transform[,] grid = new Transform[width, height];
 
+    //public GameObject score_object = null;
+    //public Text scoreText;
+    //private static int score = 0;
 
-    // Update is called once per frame
+
+
+    void Start() 
+    {
+
+    }
+
     void Update()
     {
         Movement();
+        
     }
 
     private void Movement()
@@ -90,8 +99,9 @@ public class TetrisBlock : MonoBehaviour
             return false;
         }
 
-        score += 100;
-        print(score);
+        FindObjectOfType<Score>().AddScore();
+        //score += 100;
+        //print(score);
         return true;
     }
 
@@ -143,6 +153,13 @@ public class TetrisBlock : MonoBehaviour
 
     public void GameOver() 
     {
+        Debug.Log("Game Over");
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void GameClear()
+    {
+        Debug.Log("Game Clear");
         SceneManager.LoadScene("SampleScene");
     }
 
@@ -169,6 +186,8 @@ public class TetrisBlock : MonoBehaviour
         }
         return true;
     }
+
+    
 
 
 }

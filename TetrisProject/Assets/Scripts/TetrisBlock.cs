@@ -15,9 +15,7 @@ public class TetrisBlock : MonoBehaviour
 
     private static Transform[,] grid = new Transform[width, height];
 
-    //public GameObject score_object = null;
-    //public Text scoreText;
-    //private static int score = 0;
+    //public GameObject gameOverUI;
 
 
 
@@ -99,7 +97,7 @@ public class TetrisBlock : MonoBehaviour
             return false;
         }
 
-        FindObjectOfType<Score>().AddScore();
+        FindObjectOfType<GameManagement>().AddScore();
         //score += 100;
         //print(score);
         return true;
@@ -145,22 +143,11 @@ public class TetrisBlock : MonoBehaviour
             // height-1 = 19のところまでブロックがきたらGameOver
             if (roundedY >= height-1) 
             {
-                GameOver();
+                FindObjectOfType<GameManagement>().Die();
+                //GameOver();
             }
 
         }
-    }
-
-    public void GameOver() 
-    {
-        Debug.Log("Game Over");
-        SceneManager.LoadScene("SampleScene");
-    }
-
-    public void GameClear()
-    {
-        Debug.Log("Game Clear");
-        SceneManager.LoadScene("SampleScene");
     }
 
     // ブロック移動の制御

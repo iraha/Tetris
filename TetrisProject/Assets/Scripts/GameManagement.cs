@@ -6,11 +6,16 @@ using UnityEngine.UI;
 
 public class GameManagement : MonoBehaviour
 {
+    // TetrisBlock クラスを呼び出す
+    public TetrisBlock tetrisBlock;
+
     // スコア関連
     public Text scoreText;
 
     private int score;
     public int clearScore = 200;
+
+
 
     // タイマー関連
     public Text timerText;
@@ -21,16 +26,24 @@ public class GameManagement : MonoBehaviour
     // ゲームクリア、ゲームオーバー関連
     public GameObject gameOverUI;
     public SceneFader sceneFader;
+    public GameObject gameClearUI;
 
-    public string menuSceneName = "Menu";
 
-    
+    // スコアの点数
+    public int scoreOneLine = 100;
+    public int scoreTwoLine = 250;
+    public int scoreThreeLine = 500;
+    public int scoreFourLine = 1000;
 
+    private int currentScore = 0;
+
+    private int numberOfLines;
 
 
     // Start is called before the first frame update
     void Start()
     {
+
 
         // スコアを0に戻す
         Initialize();
@@ -40,13 +53,58 @@ public class GameManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         
         TimeManagement();
 
         // スコアを表示する
-        scoreText.text = score.ToString();
+       //AddScore();
 
+    }
+
+    // スコア関連
+    public void UpdateScore()
+    {
+        if (numberOfLines > 0)
+        {
+            if (numberOfLines == 1)
+            {
+                OneLine();
+            }
+            else if (numberOfLines == 2)
+            {
+                TwoLine();
+            }
+            else if (numberOfLines == 3)
+            {
+                ThreeLine();
+            }
+            else if (numberOfLines == 4)
+            {
+                FourLine();
+            }
+            numberOfLines = 0;
+        }
+    }
+
+    // １列がそろっと場合のスコア
+    public void OneLine()
+    {
+        currentScore += scoreOneLine;
+    }
+    // ２列がそろっと場合のスコア
+    public void TwoLine()
+    {
+        currentScore += scoreTwoLine;
+    }
+    // ３列がそろっと場合のスコア
+    public void ThreeLine()
+    {
+        currentScore += scoreThreeLine;
+    }
+    // ４列がそろっと場合のスコア
+    public void FourLine()
+    {
+        currentScore += scoreFourLine;
     }
 
     // ゲーム開始前の状態に戻す
@@ -56,6 +114,8 @@ public class GameManagement : MonoBehaviour
         score = 0;
 
     }
+
+
     // スコアの追加
     public void AddScore()
     {
@@ -68,6 +128,7 @@ public class GameManagement : MonoBehaviour
             Clear();
         }
     }
+    
 
     // タイマーの設定
     public void TimeManagement()
@@ -95,7 +156,8 @@ public class GameManagement : MonoBehaviour
     public void Clear()
     {
         Debug.Log("GameClear");
-        SceneManager.LoadScene("SampleScene");
+        Toggle();
+        //SceneManager.LoadScene("SampleScene");
     }
 
     
@@ -120,7 +182,7 @@ public class GameManagement : MonoBehaviour
 
     public void Menu()
     {
-        sceneFader.FadeTo(menuSceneName);
+        //sceneFader.FadeTo(menuSceneName);
     }
 
 }

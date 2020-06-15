@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,8 +16,9 @@ public class TetrisBlock : MonoBehaviour
 
     private static Transform[,] grid = new Transform[width, height];
 
-    //public GameObject gameOverUI;
 
+    // ラインの数
+    private int numberOfLines = 0;
 
 
     void Start() 
@@ -27,8 +29,11 @@ public class TetrisBlock : MonoBehaviour
     void Update()
     {
         Movement();
-        
+        //AddScore();
     }
+
+    
+
 
     private void Movement()
     {
@@ -75,6 +80,7 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
+
     public void CheckForLines() 
     {
         for (int i = height - 1; i >= 0; i--) 
@@ -96,6 +102,9 @@ public class TetrisBlock : MonoBehaviour
             if (grid[j, i] == null)
             return false;
         }
+        // ラインの数を数える
+        numberOfLines++;
+        Debug.Log(numberOfLines);
 
         FindObjectOfType<GameManagement>().AddScore();
         //score += 100;
@@ -111,6 +120,8 @@ public class TetrisBlock : MonoBehaviour
             Destroy(grid[j, i].gameObject);
             grid[j, i] = null;
         }
+
+        //Debug.Log(numberOfLines);
     }
     
     // 列を下げる

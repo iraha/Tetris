@@ -24,6 +24,8 @@ public class GameManagement : MonoBehaviour
 
     public string menuSceneName = "Menu";
 
+    
+
 
 
     // Start is called before the first frame update
@@ -63,7 +65,7 @@ public class GameManagement : MonoBehaviour
         if (score == clearScore)
         {
             Debug.Log(clearScore);
-            //GameClear();
+            Clear();
         }
     }
 

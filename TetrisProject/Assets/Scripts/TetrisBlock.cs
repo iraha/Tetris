@@ -26,7 +26,7 @@ public class TetrisBlock : MonoBehaviour
 
     }
 
-    void Update()
+    void LateUpdate()
     {
         Movement();
         //AddScore();

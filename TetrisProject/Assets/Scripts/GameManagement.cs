@@ -7,15 +7,14 @@ using UnityEngine.UI;
 public class GameManagement : MonoBehaviour
 {
     // TetrisBlock クラスを呼び出す
-    public TetrisBlock tetrisBlock;
+    //public TetrisBlock tetrisBlock;
+
 
     // スコア関連
     public Text scoreText;
 
     private int score;
     public int clearScore = 200;
-
-
 
     // タイマー関連
     public Text timerText;
@@ -24,9 +23,11 @@ public class GameManagement : MonoBehaviour
     int seconds;
 
     // ゲームクリア、ゲームオーバー関連
-    public GameObject gameOverUI;
     public SceneFader sceneFader;
+
+    public GameObject gameOverUI;
     public GameObject gameClearUI;
+
 
 
     // スコアの点数
@@ -55,10 +56,16 @@ public class GameManagement : MonoBehaviour
     {
         
         TimeManagement();
-
+        UpdateScore();
+        
         // スコアを表示する
-       //AddScore();
+        //AddScore();
 
+    }
+
+    public void UpdateScoreUI() 
+    {
+        scoreText.text = currentScore.ToString();
     }
 
     // スコア関連
@@ -150,18 +157,18 @@ public class GameManagement : MonoBehaviour
     public void Die()
     {
         Debug.Log("GameOver");
-        Toggle();
+        GameOverToggle();
     }
 
     public void Clear()
     {
         Debug.Log("GameClear");
-        Toggle();
+        GameClearToggle();
         //SceneManager.LoadScene("SampleScene");
     }
 
     
-    public void Toggle()
+    public void GameOverToggle()
     {
         gameOverUI.SetActive(!gameOverUI.activeSelf);
 
@@ -175,9 +182,26 @@ public class GameManagement : MonoBehaviour
         }
     }
 
+    public void GameClearToggle()
+    {
+        gameClearUI.SetActive(!gameClearUI.activeSelf);
+
+        if (gameClearUI.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
     public void Retry()
     {
+        //SceneManager.LoadScene("SampleScene");
+        //sceneFader.FadeTo(SceneManager.GetActiveScene().name);
         sceneFader.FadeTo(SceneManager.GetActiveScene().name);
+        Debug.Log("Retry");
     }
 
     public void Menu()

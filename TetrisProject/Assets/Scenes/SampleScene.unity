@@ -280,7 +280,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 192571952}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &192571952
@@ -1290,10 +1301,14 @@ MonoBehaviour:
   scoreText: {fileID: 1969892071}
   clearScore: 100
   timerText: {fileID: 349937011}
-  gameTime: 60
-  gameOverUI: {fileID: 433207216}
+  gameTime: 5
   sceneFader: {fileID: 1523084840}
-  menuSceneName: Menu
+  gameOverUI: {fileID: 433207216}
+  gameClearUI: {fileID: 1013674312}
+  scoreOneLine: 100
+  scoreTwoLine: 250
+  scoreThreeLine: 500
+  scoreFourLine: 1000
 --- !u!1 &1200058532
 GameObject:
   m_ObjectHideFlags: 0

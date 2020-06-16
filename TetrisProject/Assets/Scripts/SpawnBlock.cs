@@ -17,4 +17,6 @@ public class SpawnBlock : MonoBehaviour
         Instantiate(Blocks[Random.Range(0, Blocks.Length)], transform.position, Quaternion.identity);
     }
 
+    
+
 }

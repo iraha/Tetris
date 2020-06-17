@@ -27,6 +27,7 @@ public class GameManagement : MonoBehaviour
 
     public GameObject gameOverUI;
     public GameObject gameClearUI;
+    public GameObject gamePauseUI;
 
 
 
@@ -58,6 +59,7 @@ public class GameManagement : MonoBehaviour
         TimeManagement();
         UpdateScore();
         
+
         // スコアを表示する
         //AddScore();
 
@@ -132,7 +134,7 @@ public class GameManagement : MonoBehaviour
         if (score == clearScore)
         {
             Debug.Log(clearScore);
-            Clear();
+            GameClear();
         }
     }
     
@@ -148,23 +150,28 @@ public class GameManagement : MonoBehaviour
         if (seconds == 0)
         {
             Debug.Log("TimeOut");
-            Die();
+            GameOver();
             //GameClear();
             //FindObjectOfType<GameOver>().EndGame();
         }
     }
     
-    public void Die()
+    public void GameOver()
     {
         Debug.Log("GameOver");
         GameOverToggle();
     }
 
-    public void Clear()
+    public void GameClear()
     {
         Debug.Log("GameClear");
         GameClearToggle();
         //SceneManager.LoadScene("SampleScene");
+    }
+
+    public void GamePause() 
+    {
+        GamePauseToggle();
     }
 
     
@@ -196,17 +203,45 @@ public class GameManagement : MonoBehaviour
         }
     }
 
+    public void GamePauseToggle()
+    {
+        gamePauseUI.SetActive(!gamePauseUI.activeSelf);
+
+        if (gamePauseUI.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
     public void Retry()
     {
         //SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("SampleScene");
         //sceneFader.FadeTo(SceneManager.GetActiveScene().name);
-        sceneFader.FadeTo(SceneManager.GetActiveScene().name);
         Debug.Log("Retry");
     }
 
     public void Menu()
     {
         //sceneFader.FadeTo(menuSceneName);
+    }
+
+    public void Restart() 
+    {
+        gamePauseUI.SetActive(!gamePauseUI.activeSelf);
+
+        if (gamePauseUI.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
 }

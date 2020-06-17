@@ -154,7 +154,7 @@ public class TetrisBlock : MonoBehaviour
             // height-1 = 19のところまでブロックがきたらGameOver
             if (roundedY >= height-1) 
             {
-                FindObjectOfType<GameManagement>().Die();
+                FindObjectOfType<GameManagement>().GameOver();
                 //GameOver();
             }
 
